@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+//biblioteca express generetor que monta a estrutura de pastas da api/definição de porta com mais segurança.s
+
 /**
  * Module dependencies.
  */
