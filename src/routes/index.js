@@ -10,3 +10,5 @@ router.get('/', function(req, res, next) {
 });
 
 module.exports = router;
+
+// rota padrão index sem proteção pra saber se a api esta no ar

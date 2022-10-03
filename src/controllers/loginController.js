@@ -15,7 +15,7 @@ const login = (req, res) => {
                     email: `${req.body.email}`
                 })
             }
-            const validPassoword = bcrypt.compareSync(req.body.password, user.password)
+            const validPassoword = bcrypt.compareSync(req.body.password, user.password) // comparar a senha do body da requisição com a senha do usuario
 
             if (!validPassoword) {
                 return res.status(401).send({
@@ -23,14 +23,15 @@ const login = (req, res) => {
                 })
             }
 
-            // const token = jwt.sign({
-            //     name: user.name
-            // }, SECRET)
+            const token = jwt.sign({name: user.name} , SECRET)
+
+            // se for autorizado
 
             res.status(200).send({
-                message: "Login autorizado"
+                message: "Login autorizado", token
             })
         })
+        // login autorizado e autenticado
 
     } catch (e) {
         console.error(e)
