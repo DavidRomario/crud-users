@@ -7,6 +7,7 @@ require("dotenv-safe").config();
 
 var indexRouter = require('./src/routes/index');
 var usersRouter = require('./src/routes/users');
+var productsRouter = require('./src/routes/products');
 var db = require('./src/config/database');
 
 
@@ -21,5 +22,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/products', productsRouter);
 
 module.exports = app;

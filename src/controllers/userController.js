@@ -1,6 +1,6 @@
 const userSchema = require("../models/userModel");
-const bcrypt = require("bcrypt"); // criptografar a senha
-const jwt = require("jsonwebtoken"); // gerar token
+// const bcrypt = require("bcrypt"); // criptografar a senha
+// const jwt = require("jsonwebtoken"); // gerar token
 
 const SECRET = process.env.SECRET
 
@@ -45,10 +45,10 @@ const getUserById = async (req, res) => {
 
 // criação de usuario
 const createUser = async (req, res) => {
-  const hashedPassword = bcrypt.hashSync(req.body.password, 10); // salvo dentro de uma variavel a função do bcrypt hashsinc, responsavel por pegar a senha que vem no body da requisição e transforma ela num hash criptografado
-  console.log(hashedPassword)
+  // const hashedPassword = bcrypt.hashSync(req.body.password, 10); // salvo dentro de uma variavel a função do bcrypt hashsinc, responsavel por pegar a senha que vem no body da requisição e transforma ela num hash criptografado
+  // console.log(hashedPassword)
 
-  req.body.password = hashedPassword; // reatribuição de valor, passando a ser agora uma senha hasherizada
+  // req.body.password = hashedPassword; // reatribuição de valor, passando a ser agora uma senha hasherizada
 
   try {
     const newUser = new userSchema(req.body);
