@@ -1,28 +1,24 @@
 const userSchema = require("../models/userModel");
-// const bcrypt = require("bcrypt"); // criptografar a senha
-// const jwt = require("jsonwebtoken"); // gerar token
+const bcrypt = require("bcrypt"); // criptografar a senha
+const jwt = require("jsonwebtoken"); // gerar token
 
-const SECRET = process.env.SECRET
+const SECRET = process.env.SECRET;
 
 //try=tentativa/proteção codigo
 // listagem de todos os usuarios
 const getAll = async (req, res) => {
-
-
   userSchema.find((err, users) => {
     if (err) {
       res.status(500).send({
-        message: err.message
+        message: err.message,
       });
     }
     res.status(200).send(users);
   });
 };
 
-
 // listagem de um unico usuario
 const getUserById = async (req, res) => {
-
   //acessar id do usuario
   const requestedId = req.params.id;
   console.log("ID REQUERIDO", requestedId);
@@ -33,14 +29,10 @@ const getUserById = async (req, res) => {
       message: "Usuario encontrado",
       user,
     });
-
   } catch {
     // se usuario não existir
     return res.status(404).send("Usuario não encontrado");
-
   }
-
-
 };
 
 // criação de usuario
@@ -60,7 +52,7 @@ const createUser = async (req, res) => {
     //resposta do usuario criado
     res.status(201).send({
       message: "Novo usuario criado com sucesso",
-      savedUser
+      savedUser,
     });
   } catch (e) {
     console.error(e);
@@ -69,7 +61,7 @@ const createUser = async (req, res) => {
 const updateUser = async (req, res) => {
   // acessar id do usuario
   const userId = req.params.id;
-  console.log("ID Requerido", userId)
+  console.log("ID Requerido", userId);
 
   // acessar dados a serem atualizados
   const userName = req.body.name;
@@ -80,53 +72,51 @@ const updateUser = async (req, res) => {
   try {
     const user = await userSchema.findById(userId);
     // atualizar o objeto
-    const updateUserData = await userSchema.updateOne({
-      _id: userId
-    }, {
-      name: userName,
-      email: userEmail,
-      password: userPassword
-    });
+    const updateUserData = await userSchema.updateOne(
+      {
+        _id: userId,
+      },
+      {
+        name: userName,
+        email: userEmail,
+        password: userPassword,
+      }
+    );
 
     const newUser = await userSchema.findById(userId);
 
     //resposta - enviar a resposta
     return res.status(200).send({
       message: "usuário atualizado com sucesso",
-      newUser
+      newUser,
     });
-
   } catch {
     // se usuario não existir
     return res.status(404).send("Usuario não encontrado");
-
   }
 };
 const deleteUser = async (req, res) => {
-
   // acessar id usuario
   const userId = req.params.id;
-  console.log("ID Requerido", userId)
+  console.log("ID Requerido", userId);
 
   // verificar se usuario existe
   try {
     const user = await userSchema.findById(userId);
     // se existir, deletar
     const deleteUserData = await userSchema.deleteOne({
-      _id: userId
-    })
+      _id: userId,
+    });
 
     //resposta
     return res.status(200).send({
-      message: "Usuario deletado"
-    })
+      message: "Usuario deletado",
+    });
 
     // senão, user não encontrado
   } catch {
     return res.status(404).send("Usuario não encontrado");
-
   }
-
 };
 
 module.exports = {
